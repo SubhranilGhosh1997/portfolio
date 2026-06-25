@@ -1,550 +1,1448 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Subhranil Ghosh — Java Backend Developer</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-  :root{
-    --bg:#070a12;
-    --bg2:#0b1020;
-    --card:#101626;
-    --card-border:rgba(255,255,255,0.08);
-    --text:#e7ecf7;
-    --muted:#8b96b3;
-    --accent:#3ee8b5;
-    --accent2:#6c8cff;
-    --accent3:#a78bfa;
-    --grad: linear-gradient(135deg, var(--accent), var(--accent2));
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    overflow-x:hidden;
-  }
-  a{color:inherit;text-decoration:none;}
-
-  .bg-glow{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-  .blob{ position:absolute; border-radius:50%; filter:blur(90px); opacity:0.25; animation: float 18s ease-in-out infinite; }
-  .blob1{width:480px;height:480px; background:var(--accent2); top:-150px; left:-150px;}
-  .blob2{width:420px;height:420px; background:var(--accent3); top:30%; right:-180px; animation-delay:4s;}
-  .blob3{width:380px;height:380px; background:var(--accent); bottom:-150px; left:20%; animation-delay:8s;}
-  @keyframes float{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(40px,-30px) scale(1.1);} }
-
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:18px 6vw;
-    background:rgba(7,10,18,0.7);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--card-border);
-  }
-  .logo{ font-weight:800; font-size:1.2rem; display:flex; align-items:center; gap:10px; }
-  .logo-badge{
-    width:36px;height:36px;border-radius:10px; background:var(--grad);
-    display:flex;align-items:center;justify-content:center; color:#06121a; font-weight:900; font-size:0.95rem;
-  }
-  .nav-links{display:flex; gap:24px; font-size:0.9rem; color:var(--muted);}
-  .nav-links a{transition:color .2s;}
-  .nav-links a:hover, .nav-links a.active{color:var(--text);}
-  .nav-cta{ display:flex; gap:10px; }
-  .icon-btn{
-    width:38px;height:38px;border-radius:10px; background:var(--card); border:1px solid var(--card-border);
-    display:flex;align-items:center;justify-content:center; font-size:0.9rem; color:var(--muted); transition:all .2s;
-  }
-  .icon-btn:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-2px); }
-  .menu-toggle{display:none; font-size:1.3rem; cursor:pointer;}
-  @media (max-width:780px){
-    .nav-links{display:none;}
-    .menu-toggle{display:block;}
-    .nav-links.open{
-      display:flex; flex-direction:column; position:absolute; top:64px; left:0; right:0;
-      background:var(--bg2); padding:18px 6vw; gap:16px; border-bottom:1px solid var(--card-border);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subhranil Ghosh — Java Backend Developer</title>
+  <link rel="icon" type="image/png"
+    href="https://raw.githubusercontent.com/subhranilghosh1997/portfolio/main/files/me.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg: #070a12;
+      --bg2: #0b1020;
+      --card: #101626;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #e7ecf7;
+      --muted: #8b96b3;
+      --accent: #3ee8b5;
+      --accent2: #6c8cff;
+      --accent3: #a78bfa;
+      --grad: linear-gradient(135deg, var(--accent), var(--accent2));
     }
-  }
 
-  section{ position:relative; z-index:1; padding:100px 6vw 60px; max-width:1200px; margin:0 auto; }
-
-  .hero{ min-height:92vh; display:flex; flex-direction:column; justify-content:center; padding-top:120px; }
-  .hero-inner{ display:flex; align-items:center; gap:56px; flex-wrap:wrap-reverse; }
-  .hero-text{ flex:1; min-width:300px; }
-  .hero-photo-wrap{ position:relative; width:220px; height:220px; flex-shrink:0; margin:0 auto; }
-  .hero-photo-ring{ position:absolute; inset:-6px; border-radius:50%; background:var(--grad); animation:spin 6s linear infinite; filter:blur(1px); }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  .hero-photo{
-    position:relative; width:220px; height:220px; border-radius:50%; overflow:hidden;
-    border:5px solid var(--bg); background:var(--card); display:flex; align-items:center; justify-content:center; z-index:1;
-  }
-  .hero-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .hero-photo .initials{ font-size:3.2rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  @media (max-width:760px){ .hero-inner{ flex-direction:column-reverse; text-align:center; } .hero-actions{ justify-content:center; } }
-  .eyebrow{
-    color:var(--accent); font-weight:600; letter-spacing:2px; font-size:0.8rem; text-transform:uppercase;
-    margin-bottom:18px; display:flex; align-items:center; gap:10px;
-  }
-  .eyebrow::before{content:''; width:28px; height:2px; background:var(--accent); display:inline-block;}
-  .hero h1{ font-size:clamp(2.4rem, 7vw, 4.6rem); font-weight:800; line-height:1.05; letter-spacing:-1px; margin-bottom:18px; }
-  .hero h1 span{ background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .hero .role{ font-size:clamp(1.05rem,2.4vw,1.4rem); color:var(--muted); margin-bottom:22px; font-weight:500; }
-  .hero p.summary{ max-width:620px; color:var(--muted); font-size:1.02rem; line-height:1.7; margin-bottom:34px; }
-  .hero-actions{display:flex; flex-wrap:wrap; gap:14px;}
-  .btn{
-    padding:13px 24px; border-radius:12px; font-weight:600; font-size:0.95rem;
-    display:flex; align-items:center; gap:10px; transition:all .25s; cursor:pointer; border:none;
-  }
-  .btn-primary{ background:var(--grad); color:#06121a; }
-  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 10px 30px rgba(62,232,181,0.25);}
-  .btn-ghost{ background:var(--card); border:1px solid var(--card-border); color:var(--text); }
-  .btn-ghost:hover{ border-color:var(--accent2); transform:translateY(-3px); color:var(--accent2); }
-
-  .scroll-hint{ margin-top:60px; color:var(--muted); font-size:0.8rem; display:flex; align-items:center; gap:10px; animation:bounce 2s infinite; }
-  @keyframes bounce{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);} }
-
-  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; padding:0 6vw; margin-top:-20px; }
-  @media (max-width:760px){ .stats{grid-template-columns:repeat(2,1fr);} }
-  .stat-card{ background:var(--card); border:1px solid var(--card-border); border-radius:16px; padding:24px 18px; text-align:center; transition:transform .25s, border-color .25s; }
-  .stat-card:hover{ transform:translateY(-6px); border-color:var(--accent2); }
-  .stat-num{ font-size:1.9rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .stat-label{ color:var(--muted); font-size:0.78rem; margin-top:6px; }
-
-  .sec-head{ margin-bottom:46px; }
-  .sec-tag{ color:var(--accent2); font-weight:700; letter-spacing:2px; font-size:0.75rem; text-transform:uppercase; }
-  .sec-title{ font-size:clamp(1.7rem,4vw,2.4rem); font-weight:800; margin-top:8px; }
-
-  .skills-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
-  @media (max-width:760px){ .skills-grid{grid-template-columns:1fr;} }
-  .skill-card{ background:var(--card); border:1px solid var(--card-border); border-radius:18px; padding:26px; transition:border-color .25s, transform .25s; }
-  .skill-card:hover{ border-color:var(--accent3); transform:translateY(-4px); }
-  .skill-card h3{ display:flex; align-items:center; gap:12px; font-size:1.05rem; margin-bottom:16px; }
-  .skill-card h3 i{ width:38px;height:38px;border-radius:10px; background:rgba(108,140,255,0.12); color:var(--accent2); display:flex; align-items:center; justify-content:center; }
-  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
-  .chip{ font-size:0.78rem; padding:6px 12px; border-radius:20px; background:rgba(255,255,255,0.04); border:1px solid var(--card-border); color:var(--muted); transition:all .2s; }
-  .chip:hover{ color:var(--accent); border-color:var(--accent); }
-
-  .timeline{ position:relative; padding-left:32px; }
-  .timeline::before{ content:''; position:absolute; left:8px; top:6px; bottom:6px; width:2px; background:linear-gradient(var(--accent2), var(--accent3)); }
-  .t-item{ position:relative; margin-bottom:44px; }
-  .t-item:last-child{margin-bottom:0;}
-  .t-dot{ position:absolute; left:-32px; top:2px; width:18px;height:18px;border-radius:50%; background:var(--bg); border:3px solid var(--accent2); }
-  .t-item.current .t-dot{ border-color:var(--accent); box-shadow:0 0 0 5px rgba(62,232,181,0.15); }
-  .t-card{ background:var(--card); border:1px solid var(--card-border); border-radius:16px; padding:24px 28px; }
-  .t-top{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:6px;}
-  .t-role{ font-size:1.15rem; font-weight:700; }
-  .t-period{ font-size:0.8rem; color:var(--accent); font-weight:600; background:rgba(62,232,181,0.1); padding:4px 12px; border-radius:20px; }
-  .t-company{ color:var(--muted); font-size:0.9rem; margin-bottom:14px; font-weight:500;}
-  .t-list{ list-style:none; display:flex; flex-direction:column; gap:9px; }
-  .t-list li{ color:var(--muted); font-size:0.92rem; line-height:1.55; padding-left:18px; position:relative; }
-  .t-list li::before{ content:'▸'; position:absolute; left:0; color:var(--accent2); }
-
-  .projects-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
-  @media (max-width:820px){ .projects-grid{grid-template-columns:1fr;} }
-  .project-card{
-    background:linear-gradient(160deg, var(--card), var(--bg2)); border:1px solid var(--card-border); border-radius:20px; padding:28px;
-    position:relative; overflow:hidden; transition:transform .3s, border-color .3s;
-  }
-  .project-card:hover{ transform:translateY(-6px); border-color:var(--accent2); }
-  .project-card::after{
-    content:''; position:absolute; top:-60%; right:-60%; width:200px;height:200px; border-radius:50%;
-    background:var(--grad); opacity:0.08; filter:blur(30px);
-  }
-  .proj-tag{ display:inline-block; font-size:0.72rem; font-weight:700; color:var(--accent3); background:rgba(167,139,250,0.12); padding:5px 12px; border-radius:20px; margin-bottom:14px; }
-  .project-card h3{ font-size:1.25rem; margin-bottom:14px; }
-  .project-card ul{ list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:18px;}
-  .project-card ul li{ color:var(--muted); font-size:0.9rem; line-height:1.55; padding-left:18px; position:relative;}
-  .project-card ul li::before{ content:'◆'; position:absolute; left:0; color:var(--accent); font-size:0.7rem; top:4px;}
-  .proj-techs{ display:flex; flex-wrap:wrap; gap:8px; }
-
-  .edu-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
-  @media (max-width:760px){ .edu-grid{grid-template-columns:1fr;} }
-  .edu-card{ background:var(--card); border:1px solid var(--card-border); border-radius:18px; padding:26px; }
-  .edu-card .deg{ font-weight:700; font-size:1.05rem; margin-bottom:6px; }
-  .edu-card .inst{ color:var(--muted); font-size:0.88rem; margin-bottom:16px; }
-  .edu-meta{ display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:var(--muted); margin-bottom:8px;}
-  .cgpa-bar{ height:6px; border-radius:6px; background:rgba(255,255,255,0.06); overflow:hidden; }
-  .cgpa-fill{ height:100%; background:var(--grad); border-radius:6px; }
-
-  /* RESUME */
-  .resume-toolbar{ text-align:center; margin-bottom:8px; }
-  .resume-hint{ text-align:center; color:var(--muted); font-size:0.78rem; margin-bottom:32px; }
-  .resume-card{
-    background:var(--card); border:1px solid var(--card-border); border-radius:20px;
-    padding:46px 50px; max-width:820px; margin:0 auto;
-  }
-  .resume-name{ font-size:1.8rem; font-weight:800; text-align:center; letter-spacing:1px; }
-  .resume-contact{ text-align:center; color:var(--muted); font-size:0.85rem; margin-top:8px; margin-bottom:28px; }
-  .resume-contact a{ color:var(--accent2); }
-  .resume-block{ margin-bottom:26px; }
-  .resume-block:last-child{ margin-bottom:0; }
-  .resume-h{
-    font-size:0.82rem; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--accent);
-    border-bottom:1px solid var(--card-border); padding-bottom:8px; margin-bottom:14px;
-  }
-  .resume-block p{ color:var(--muted); font-size:0.92rem; line-height:1.65; }
-  .resume-skill-line{ font-size:0.88rem; color:var(--muted); line-height:1.7; margin-bottom:6px; }
-  .resume-skill-line b{ color:var(--text); font-weight:600; }
-  .resume-job{ margin-bottom:20px; }
-  .resume-job:last-child{ margin-bottom:0; }
-  .resume-job-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; font-size:0.95rem; margin-bottom:4px; }
-  .resume-job-role{ font-weight:700; }
-  .resume-job-period{ color:var(--accent2); font-size:0.82rem; font-weight:600; }
-  .resume-job-company{ color:var(--muted); font-size:0.85rem; font-style:italic; margin-bottom:8px; }
-  .resume-job ul{ list-style:none; display:flex; flex-direction:column; gap:6px; }
-  .resume-job ul li{ color:var(--muted); font-size:0.88rem; line-height:1.55; padding-left:16px; position:relative; }
-  .resume-job ul li::before{ content:'–'; position:absolute; left:0; color:var(--accent2); }
-  .resume-edu-row{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; font-size:0.9rem; margin-bottom:4px; }
-  .resume-edu-row b{ font-weight:700; }
-  .resume-edu-sub{ color:var(--muted); font-size:0.85rem; margin-bottom:14px; }
-
-  @media print{
-    body{ background:#fff !important; color:#000 !important; }
-    .bg-glow, nav, .hero, .stats, #skills, #experience, #projects, #education, #contact, footer,
-    .resume-toolbar, .resume-hint { display:none !important; }
-    section{ padding:0 !important; max-width:100% !important; }
-    .resume-card{
-      background:#fff !important; border:none !important; box-shadow:none !important; padding:0 !important; max-width:100% !important;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .resume-name, .resume-h, .resume-job-role, .resume-edu-row b{ color:#000 !important; }
-    .resume-contact a{ color:#000 !important; }
-    .resume-h{ border-bottom:1px solid #999 !important; }
-    .resume-block p, .resume-skill-line, .resume-job ul li, .resume-job-company, .resume-edu-sub, .resume-contact, .resume-job-period{
-      color:#222 !important;
+
+    html {
+      scroll-behavior: smooth;
     }
-    .resume-skill-line b{ color:#000 !important; }
-  }
 
-  .contact-box{
-    background:linear-gradient(135deg, rgba(62,232,181,0.08), rgba(108,140,255,0.08));
-    border:1px solid var(--card-border); border-radius:24px; padding:60px 6vw; text-align:center;
-  }
-  .contact-box h2{ font-size:clamp(1.7rem,4vw,2.5rem); font-weight:800; margin-bottom:14px; }
-  .contact-box p{ color:var(--muted); max-width:520px; margin:0 auto 30px; }
-  .contact-actions{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
 
-  footer{ text-align:center; padding:30px 6vw 50px; color:var(--muted); font-size:0.82rem; position:relative; z-index:1; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
-  .reveal.show{ opacity:1; transform:translateY(0); }
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
 
-  ::selection{ background:var(--accent); color:#06121a; }
-</style>
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.25;
+      animation: float 18s ease-in-out infinite;
+    }
+
+    .blob1 {
+      width: 480px;
+      height: 480px;
+      background: var(--accent2);
+      top: -150px;
+      left: -150px;
+    }
+
+    .blob2 {
+      width: 420px;
+      height: 420px;
+      background: var(--accent3);
+      top: 30%;
+      right: -180px;
+      animation-delay: 4s;
+    }
+
+    .blob3 {
+      width: 380px;
+      height: 380px;
+      background: var(--accent);
+      bottom: -150px;
+      left: 20%;
+      animation-delay: 8s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(40px, -30px) scale(1.1);
+      }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 6vw;
+      background: rgba(7, 10, 18, 0.7);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #06121a;
+      font-weight: 900;
+      font-size: 0.95rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      transition: color .2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+      transition: all .2s;
+    }
+
+    .icon-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    @media (max-width:780px) {
+      .nav-links {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--bg2);
+        padding: 18px 6vw;
+        gap: 16px;
+        border-bottom: 1px solid var(--card-border);
+      }
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 6vw 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 120px;
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 56px;
+      flex-wrap: wrap-reverse;
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .hero-photo-wrap {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      flex-shrink: 0;
+      margin: 0 auto;
+    }
+
+    .hero-photo-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: var(--grad);
+      animation: spin 6s linear infinite;
+      filter: blur(1px);
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hero-photo {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 6px solid var(--bg);
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-photo .initials {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    @media (max-width:760px) {
+      .hero-inner {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-photo-wrap,
+      .hero-photo {
+        width: 200px;
+        height: 200px;
+      }
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 2px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 7vw, 4.6rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero .role {
+      font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-weight: 500;
+    }
+
+    .hero p.summary {
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all .25s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--grad);
+      color: #06121a;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(62, 232, 181, 0.25);
+    }
+
+    .btn-ghost {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent2);
+      transform: translateY(-3px);
+      color: var(--accent2);
+    }
+
+    .scroll-hint {
+      margin-top: 60px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(6px);
+      }
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      padding: 0 6vw;
+      margin-top: -20px;
+    }
+
+    @media (max-width:760px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px 18px;
+      text-align: center;
+      transition: transform .25s, border-color .25s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent2);
+    }
+
+    .stat-num {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 6px;
+    }
+
+    .sec-head {
+      margin-bottom: 46px;
+    }
+
+    .sec-tag {
+      color: var(--accent2);
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .sec-title {
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width:760px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 26px;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent3);
+      transform: translateY(-4px);
+    }
+
+    .skill-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+    }
+
+    .skill-card h3 i {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(108, 140, 255, 0.12);
+      color: var(--accent2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--muted);
+      transition: all .2s;
+    }
+
+    .chip:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(var(--accent2), var(--accent3));
+    }
+
+    .t-item {
+      position: relative;
+      margin-bottom: 44px;
+    }
+
+    .t-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .t-dot {
+      position: absolute;
+      left: -32px;
+      top: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--accent2);
+    }
+
+    .t-item.current .t-dot {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 5px rgba(62, 232, 181, 0.15);
+    }
+
+    .t-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px 28px;
+    }
+
+    .t-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .t-role {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .t-period {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      background: rgba(62, 232, 181, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .t-company {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
+    .t-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .t-list li {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .t-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width:820px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .project-card {
+      background: linear-gradient(160deg, var(--card), var(--bg2));
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent2);
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      right: -60%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--grad);
+      opacity: 0.08;
+      filter: blur(30px);
+    }
+
+    .proj-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent3);
+      background: rgba(167, 139, 250, 0.12);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .project-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+    }
+
+    .project-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .project-card ul li {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .project-card ul li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+      top: 4px;
+    }
+
+    .proj-techs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width:760px) {
+      .edu-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 26px;
+    }
+
+    .edu-card .deg {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .edu-card .inst {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 16px;
+    }
+
+    .edu-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .cgpa-bar {
+      height: 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .cgpa-fill {
+      height: 100%;
+      background: var(--grad);
+      border-radius: 6px;
+    }
+
+    /* RESUME */
+    .resume-toolbar {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .resume-hint {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-bottom: 32px;
+    }
+
+    .resume-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 46px 50px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .resume-name {
+      font-size: 1.8rem;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .resume-contact {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 8px;
+      margin-bottom: 28px;
+    }
+
+    .resume-contact a {
+      color: var(--accent2);
+    }
+
+    .resume-block {
+      margin-bottom: 26px;
+    }
+
+    .resume-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .resume-h {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+    }
+
+    .resume-block p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .resume-skill-line {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 6px;
+    }
+
+    .resume-skill-line b {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .resume-job {
+      margin-bottom: 20px;
+    }
+
+    .resume-job:last-child {
+      margin-bottom: 0;
+    }
+
+    .resume-job-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .resume-job-role {
+      font-weight: 700;
+    }
+
+    .resume-job-period {
+      color: var(--accent2);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .resume-job-company {
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .resume-job ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .resume-job ul li {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .resume-job ul li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    .resume-edu-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .resume-edu-row b {
+      font-weight: 700;
+    }
+
+    .resume-edu-sub {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      .bg-glow,
+      nav,
+      .hero,
+      .stats,
+      #skills,
+      #experience,
+      #projects,
+      #education,
+      #contact,
+      footer,
+      .resume-toolbar,
+      .resume-hint {
+        display: none !important;
+      }
+
+      section {
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .resume-card {
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .resume-name,
+      .resume-h,
+      .resume-job-role,
+      .resume-edu-row b {
+        color: #000 !important;
+      }
+
+      .resume-contact a {
+        color: #000 !important;
+      }
+
+      .resume-h {
+        border-bottom: 1px solid #999 !important;
+      }
+
+      .resume-block p,
+      .resume-skill-line,
+      .resume-job ul li,
+      .resume-job-company,
+      .resume-edu-sub,
+      .resume-contact,
+      .resume-job-period {
+        color: #222 !important;
+      }
+
+      .resume-skill-line b {
+        color: #000 !important;
+      }
+    }
+
+    .contact-box {
+      background: linear-gradient(135deg, rgba(62, 232, 181, 0.08), rgba(108, 140, 255, 0.08));
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 60px 6vw;
+      text-align: center;
+    }
+
+    .contact-box h2 {
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 30px;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 6vw 50px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #06121a;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="bg-glow">
-  <div class="blob blob1"></div>
-  <div class="blob blob2"></div>
-  <div class="blob blob3"></div>
-</div>
-
-<nav>
-  <div class="logo"><div class="logo-badge">SG</div> Subhranil Ghosh</div>
-  <div class="nav-links" id="navLinks">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#education">Education</a>
-    <a href="#resume">Resume</a>
-    <a href="#contact">Contact</a>
+  <div class="bg-glow">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
   </div>
-  <div class="nav-cta">
-    <a class="icon-btn" href="https://www.linkedin.com/in/subhranilghosh" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-    <a class="icon-btn" href="mailto:ghoshsubhranil26@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
-    <div class="icon-btn menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></div>
-  </div>
-</nav>
 
-<section class="hero" id="about">
-  <div class="eyebrow">Backend Developer · Java Ecosystem</div>
-  <h1>Hi, I'm <span>Subhranil Ghosh.</span><br>I build reliable backend systems.</h1>
-  <div class="role">Java · Spring Boot · Microservices · REST APIs</div>
-  <p class="summary">3.6 years of professional experience in the IT industry, with strong hands-on exposure across the full SDLC — requirements analysis, low-level design, coding, testing, and deployment. I care about clean APIs, solid test coverage, and code that ships without bugs or code smells.</p>
-  <div class="hero-actions">
-    <a class="btn btn-primary" href="mailto:ghoshsubhranil26@gmail.com"><i class="fa-solid fa-paper-plane"></i> Get in touch</a>
-    <a class="btn btn-ghost" href="https://www.linkedin.com/in/subhranilghosh" target="_blank"><i class="fa-brands fa-linkedin-in"></i> View LinkedIn</a>
-    <a class="btn btn-ghost" href="#resume"><i class="fa-solid fa-file-arrow-down"></i> View / Download Resume</a>
-  </div>
-  <div class="scroll-hint"><i class="fa-solid fa-arrow-down"></i> Scroll to explore</div>
-</section>
-
-<div class="stats reveal">
-  <div class="stat-card"><div class="stat-num">3.6+</div><div class="stat-label">Years of Experience</div></div>
-  <div class="stat-card"><div class="stat-num">90%+</div><div class="stat-label">Unit Test Coverage</div></div>
-  <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Microservices Built</div></div>
-  <div class="stat-card"><div class="stat-num">0</div><div class="stat-label">Bugs &amp; Code Smells*</div></div>
-</div>
-
-<section id="skills">
-  <div class="sec-head reveal">
-    <div class="sec-tag">What I work with</div>
-    <div class="sec-title">Skills &amp; Tools</div>
-  </div>
-  <div class="skills-grid reveal">
-    <div class="skill-card">
-      <h3><i class="fa-solid fa-code"></i> Core &amp; Frameworks</h3>
-      <div class="chips">
-        <span class="chip">Java 8+</span><span class="chip">Spring Boot</span><span class="chip">Spring Data JPA</span>
-        <span class="chip">Spring Batch</span><span class="chip">Spring Security</span><span class="chip">Hibernate</span>
-        <span class="chip">REST APIs</span><span class="chip">Microservices</span><span class="chip">OOPs</span>
-        <span class="chip">Maven</span><span class="chip">Apache Tomcat</span><span class="chip">Swagger</span><span class="chip">JSON / XML</span>
-      </div>
+  <nav>
+    <div class="logo">
+      <div class="logo-badge"><img
+          src="https://raw.githubusercontent.com/subhranilghosh1997/portfolio/main/files/me.png" alt="SG"
+          style="width:100%;height:100%;object-fit:cover;border-radius:10px;"
+          onerror="this.style.display='none'; this.parentElement.textContent='SG';"></div> Subhranil Ghosh
     </div>
-    <div class="skill-card">
-      <h3><i class="fa-solid fa-database"></i> Databases</h3>
-      <div class="chips">
-        <span class="chip">Oracle 19c</span><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span>
-      </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
     </div>
-    <div class="skill-card">
-      <h3><i class="fa-solid fa-vial"></i> Testing &amp; Quality</h3>
-      <div class="chips">
-        <span class="chip">JUnit 5</span><span class="chip">Mockito</span><span class="chip">SonarQube</span>
-        <span class="chip">Coverity Scan</span><span class="chip">Mend (WhiteSource)</span><span class="chip">Postman</span>
-      </div>
+    <div class="nav-cta">
+      <a class="icon-btn" href="https://www.linkedin.com/in/subhranilghosh" target="_blank" title="LinkedIn"><i
+          class="fa-brands fa-linkedin-in"></i></a>
+      <a class="icon-btn" href="mailto:ghoshsubhranil26@gmail.com" title="Email"><i
+          class="fa-solid fa-envelope"></i></a>
+      <div class="icon-btn menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></div>
     </div>
-    <div class="skill-card">
-      <h3><i class="fa-solid fa-toolbox"></i> Tools &amp; Platforms</h3>
-      <div class="chips">
-        <span class="chip">Git / GitHub / GitLab</span><span class="chip">IntelliJ</span><span class="chip">Eclipse</span>
-        <span class="chip">VS Code</span><span class="chip">GCP</span><span class="chip">JIRA</span><span class="chip">Agile</span>
-        <span class="chip">PgAdmin</span><span class="chip">SQL Developer</span>
-      </div>
-    </div>
-  </div>
-</section>
+  </nav>
 
-<section id="experience">
-  <div class="sec-head reveal">
-    <div class="sec-tag">Where I've worked</div>
-    <div class="sec-title">Experience</div>
-  </div>
-  <div class="timeline reveal">
-    <div class="t-item current">
-      <div class="t-dot"></div>
-      <div class="t-card">
-        <div class="t-top">
-          <div class="t-role">Software Engineer</div>
-          <div class="t-period">Jul 2022 — Present</div>
+  <section class="hero" id="about">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="eyebrow">Backend Developer · Java Ecosystem</div>
+        <h1>Hi, I'm <span>Subhranil Ghosh.</span><br>I build reliable backend systems.</h1>
+        <div class="role">Java · Spring Boot · Microservices · REST APIs</div>
+        <p class="summary">3.6 years of professional experience in the IT industry, with strong hands-on exposure across
+          the full SDLC — requirements analysis, low-level design, coding, testing, and deployment. I care about clean
+          APIs, solid test coverage, and code that ships without bugs or code smells.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:ghoshsubhranil26@gmail.com"><i class="fa-solid fa-paper-plane"></i>
+            Get in touch</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/subhranilghosh" target="_blank"><i
+              class="fa-brands fa-linkedin-in"></i> View LinkedIn</a>
+          <a class="btn btn-ghost" href="#resume"><i class="fa-solid fa-file-arrow-down"></i> View / Download Resume</a>
         </div>
-        <div class="t-company">Monocept Consulting Pvt. Ltd.</div>
-        <ul class="t-list">
-          <li>Analyzed project requirements and crafted Low-Level Designs (LLD) to meet client and project specifications.</li>
-          <li>Developed software using Agile methodologies, ensuring timely and 90% efficient project execution.</li>
-          <li>Designed and built RESTful APIs using Java 17 &amp; Spring Boot 3.2.2, documenting with Swagger — making testing 2x faster with a usable UI for QA and stakeholders.</li>
-          <li>Managed version control across GitHub &amp; GitLab, actively handling pull requests; dedicated 10% of capacity to code reviews.</li>
-          <li>Executed P0 test cases via Postman and authored JUnit 5 test suites, achieving and maintaining 90%+ code coverage.</li>
-          <li>Used SonarQube, Coverity Scan, and Mend (WhiteSource) to continuously monitor code quality — shipping with zero bugs and code smells.</li>
-          <li>Collaborated closely with QA testers to ensure smooth issue resolution and team performance.</li>
-        </ul>
+        <div class="scroll-hint"><i class="fa-solid fa-arrow-down"></i> Scroll to explore</div>
       </div>
-    </div>
-    <div class="t-item">
-      <div class="t-dot"></div>
-      <div class="t-card">
-        <div class="t-top">
-          <div class="t-role">Software Intern</div>
-          <div class="t-period">Jan 2022 — Mar 2022</div>
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-ring"></div>
+        <div class="hero-photo">
+          <img src="https://raw.githubusercontent.com/subhranilghosh1997/portfolio/main/files/me.png"
+            alt="Subhranil Ghosh" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="initials" style="display:none;">SG</span>
         </div>
-        <div class="t-company">WSE Infratech Pvt. Ltd.</div>
-        <ul class="t-list">
-          <li>Worked hands-on with Spring Boot 2, debugging issues tracked via JIRA tickets.</li>
-          <li>Raised and managed pull requests as part of the development workflow.</li>
-        </ul>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="projects">
-  <div class="sec-head reveal">
-    <div class="sec-tag">What I've built</div>
-    <div class="sec-title">Featured Projects</div>
-  </div>
-  <div class="projects-grid reveal">
-    <div class="project-card">
-      <div class="proj-tag">NCR Corporation</div>
-      <h3>ACM — Card Management System</h3>
-      <ul>
-        <li>Contributed to an enterprise-level Card Management System built with Spring Boot.</li>
-        <li>Implemented a generic Maker-Checker workflow across 5+ services — Makers perform CRUD operations, Checkers approve before changes persist to the DB, ensuring strong transaction validation and security.</li>
-        <li>Built a configurable report generation engine using Spring Batch, letting users define custom templates (header, footer, body fields) with output as CSV or TXT — covering issued cards, expired cards, and status changes.</li>
-      </ul>
-      <div class="proj-techs">
-        <span class="chip">Spring Boot</span><span class="chip">Spring Batch</span><span class="chip">Microservices</span><span class="chip">REST API</span>
-      </div>
+  <div class="stats reveal">
+    <div class="stat-card">
+      <div class="stat-num">3.6+</div>
+      <div class="stat-label">Years of Experience</div>
     </div>
-    <div class="project-card">
-      <div class="proj-tag">Max Life Insurance</div>
-      <h3>M-PRO — Agent Onboarding Platform</h3>
-      <ul>
-        <li>Built a central web application that helps insurance agents onboard customers efficiently.</li>
-        <li>Streamlined the onboarding workflow to be roughly 10x faster than prior manual processes.</li>
-      </ul>
-      <div class="proj-techs">
-        <span class="chip">Spring Boot</span><span class="chip">REST API</span><span class="chip">SQL</span>
-      </div>
+    <div class="stat-card">
+      <div class="stat-num">90%+</div>
+      <div class="stat-label">Unit Test Coverage</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Microservices Built</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Bugs &amp; Code Smells*</div>
     </div>
   </div>
-</section>
 
-<section id="education">
-  <div class="sec-head reveal">
-    <div class="sec-tag">Academic background</div>
-    <div class="sec-title">Education</div>
-  </div>
-  <div class="edu-grid reveal">
-    <div class="edu-card">
-      <div class="deg">M.Tech in Information Technology</div>
-      <div class="inst">Maulana Abul Kalam Azad University of Technology</div>
-      <div class="edu-meta"><span>2020 — 2022</span><span>CGPA: 9.32</span></div>
-      <div class="cgpa-bar"><div class="cgpa-fill" style="width:93.2%"></div></div>
+  <section id="skills">
+    <div class="sec-head reveal">
+      <div class="sec-tag">What I work with</div>
+      <div class="sec-title">Skills &amp; Tools</div>
     </div>
-    <div class="edu-card">
-      <div class="deg">B.Tech in Computer Science &amp; Engineering</div>
-      <div class="inst">Adamas Institute of Technology</div>
-      <div class="edu-meta"><span>2015 — 2019</span><span>CGPA: 7.63</span></div>
-      <div class="cgpa-bar"><div class="cgpa-fill" style="width:76.3%"></div></div>
-    </div>
-  </div>
-</section>
-
-<section id="resume">
-  <div class="sec-head reveal">
-    <div class="sec-tag">Printable version</div>
-    <div class="sec-title">Resume / CV</div>
-  </div>
-  <div class="resume-toolbar reveal">
-    <button class="btn btn-primary" onclick="window.print()" style="margin:0 auto 10px;"><i class="fa-solid fa-download"></i> Download / Print Resume</button>
-  </div>
-  <div class="resume-hint reveal">Tip: in the print dialog, choose "Save as PDF" as the destination.</div>
-
-  <div class="resume-card reveal" id="resumeCard">
-    <div class="resume-name">SUBHRANIL GHOSH</div>
-    <div class="resume-contact">
-      <a href="mailto:ghoshsubhranil26@gmail.com">ghoshsubhranil26@gmail.com</a> &nbsp;||&nbsp;
-      <a href="https://www.linkedin.com/in/subhranilghosh" target="_blank">linkedin.com/in/subhranilghosh</a> &nbsp;||&nbsp;
-      <a href="tel:+919002800424">+91 90028 00424</a>
-    </div>
-
-    <div class="resume-block">
-      <div class="resume-h">Summary</div>
-      <p>3.6 years of professional experience in the IT industry and proficient in software development. Extensively worked on SDLC stages: requirements analysis, detailed design, coding, testing, code rework, and deployment.</p>
-    </div>
-
-    <div class="resume-block">
-      <div class="resume-h">Skills</div>
-      <div class="resume-skill-line"><b>Technical Skills:</b> Java 8+, Spring Boot, REST API, Spring Batch, Spring Data JPA, Hibernate, Microservices, Unit Testing (JUnit/Mockito), JIRA, Agile, Object Oriented Programming (OOPs), Spring Security, Maven, Apache Tomcat (Embedded), JSON, Swagger, XML</div>
-      <div class="resume-skill-line"><b>Databases:</b> SQL (Oracle 19c / PostgreSQL / MySQL), NoSQL (MongoDB)</div>
-      <div class="resume-skill-line"><b>IDE &amp; Tools:</b> Git, Eclipse, IntelliJ, VS Code, Postman, MySQL Workbench, SQL Developer, PgAdmin, GCP</div>
-      <div class="resume-skill-line"><b>Soft Skills:</b> Communication, teamwork and collaboration, Copilot-assisted development</div>
-    </div>
-
-    <div class="resume-block">
-      <div class="resume-h">Work Experience</div>
-      <div class="resume-job">
-        <div class="resume-job-top">
-          <span class="resume-job-role">Software Engineer</span>
-          <span class="resume-job-period">Jul 2022 — Till Date</span>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <h3><i class="fa-solid fa-code"></i> Core &amp; Frameworks</h3>
+        <div class="chips">
+          <span class="chip">Java 8+</span><span class="chip">Spring Boot</span><span class="chip">Spring Data
+            JPA</span>
+          <span class="chip">Spring Batch</span><span class="chip">Spring Security</span><span
+            class="chip">Hibernate</span>
+          <span class="chip">REST APIs</span><span class="chip">Microservices</span><span class="chip">OOPs</span>
+          <span class="chip">Maven</span><span class="chip">Apache Tomcat</span><span class="chip">Swagger</span><span
+            class="chip">JSON / XML</span>
         </div>
-        <div class="resume-job-company">Monocept Consulting Pvt. Ltd.</div>
-        <ul>
-          <li>Analyzed project requirements and crafted Low-Level Designs (LLD) to meet client and project specifications.</li>
-          <li>Developed software using Agile methodologies, ensuring timely and 90% efficient project execution.</li>
-          <li>Designed and developed RESTful APIs using Java 17 and Spring Boot 3.2.2, utilizing Swagger, making testing 2x faster with a usable UI.</li>
-          <li>Managed version control efficiently using Git, with active involvement in committing and handling pull requests on both GitHub &amp; GitLab. Dedicated 10% of capacity to code reviews.</li>
-          <li>Executed primary (P0) test cases using Postman and authored JUnit 5 test cases, achieving and maintaining over 90% code coverage.</li>
-          <li>Utilized SonarQube, Coverity Scan, and Mend (WhiteSource) tools to monitor and enhance code quality consistently, ensuring 0 bugs and code smells.</li>
-          <li>Fostered collaboration and effective communication with QA testers to ensure optimal team performance and issue resolution.</li>
-        </ul>
       </div>
-      <div class="resume-job">
-        <div class="resume-job-top">
-          <span class="resume-job-role">Software Intern</span>
-          <span class="resume-job-period">Jan 2022 — Mar 2022</span>
+      <div class="skill-card">
+        <h3><i class="fa-solid fa-database"></i> Databases</h3>
+        <div class="chips">
+          <span class="chip">Oracle 19c</span><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span
+            class="chip">MongoDB</span>
         </div>
-        <div class="resume-job-company">WSE Infratech Pvt. Ltd.</div>
-        <ul>
-          <li>Worked on Spring Boot 2 and debugged code according to JIRA tickets and raised PRs.</li>
-        </ul>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fa-solid fa-vial"></i> Testing &amp; Quality</h3>
+        <div class="chips">
+          <span class="chip">JUnit 5</span><span class="chip">Mockito</span><span class="chip">SonarQube</span>
+          <span class="chip">Coverity Scan</span><span class="chip">Mend (WhiteSource)</span><span
+            class="chip">Postman</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fa-solid fa-toolbox"></i> Tools &amp; Platforms</h3>
+        <div class="chips">
+          <span class="chip">Git / GitHub / GitLab</span><span class="chip">IntelliJ</span><span
+            class="chip">Eclipse</span>
+          <span class="chip">VS Code</span><span class="chip">GCP</span><span class="chip">JIRA</span><span
+            class="chip">Agile</span>
+          <span class="chip">PgAdmin</span><span class="chip">SQL Developer</span>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="resume-block">
-      <div class="resume-h">Projects</div>
-      <div class="resume-job">
-        <div class="resume-job-top"><span class="resume-job-role">ACM Project — Card Management System</span></div>
-        <div class="resume-job-company">NCR Corporation</div>
-        <ul>
-          <li>Participated in the development of ACM, an enterprise-level card management system using Spring Boot.</li>
-          <li>Implemented generic Maker-Checker features across 5+ services, ensuring robust transaction validation and security — Makers perform CRUD operations, Checkers approve requests before they are stored in the DB.</li>
-          <li>Built report generation for issued cards, expired cards, and status changes using Spring Batch, with user-defined templates (header, footer, body fields), output as CSV or TXT.</li>
-        </ul>
+  <section id="experience">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Where I've worked</div>
+      <div class="sec-title">Experience</div>
+    </div>
+    <div class="timeline reveal">
+      <div class="t-item current">
+        <div class="t-dot"></div>
+        <div class="t-card">
+          <div class="t-top">
+            <div class="t-role">Software Engineer</div>
+            <div class="t-period">Jul 2022 — Present</div>
+          </div>
+          <div class="t-company">Monocept Consulting Pvt. Ltd.</div>
+          <ul class="t-list">
+            <li>Analyzed project requirements and crafted Low-Level Designs (LLD) to meet client and project
+              specifications.</li>
+            <li>Developed software using Agile methodologies, ensuring timely and 90% efficient project execution.</li>
+            <li>Designed and built RESTful APIs using Java 17 &amp; Spring Boot 3.2.2, documenting with Swagger — making
+              testing 2x faster with a usable UI for QA and stakeholders.</li>
+            <li>Managed version control across GitHub &amp; GitLab, actively handling pull requests; dedicated 10% of
+              capacity to code reviews.</li>
+            <li>Executed P0 test cases via Postman and authored JUnit 5 test suites, achieving and maintaining 90%+ code
+              coverage.</li>
+            <li>Used SonarQube, Coverity Scan, and Mend (WhiteSource) to continuously monitor code quality — shipping
+              with zero bugs and code smells.</li>
+            <li>Collaborated closely with QA testers to ensure smooth issue resolution and team performance.</li>
+          </ul>
+        </div>
       </div>
-      <div class="resume-job">
-        <div class="resume-job-top"><span class="resume-job-role">M-PRO Project</span></div>
-        <div class="resume-job-company">Max Life Insurance</div>
-        <ul>
-          <li>A central web application designed to assist agents in onboarding customers efficiently and 10x faster.</li>
-        </ul>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-card">
+          <div class="t-top">
+            <div class="t-role">Software Intern</div>
+            <div class="t-period">Jan 2022 — Mar 2022</div>
+          </div>
+          <div class="t-company">WSE Infratech Pvt. Ltd.</div>
+          <ul class="t-list">
+            <li>Worked hands-on with Spring Boot 2, debugging issues tracked via JIRA tickets.</li>
+            <li>Raised and managed pull requests as part of the development workflow.</li>
+          </ul>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="resume-block">
-      <div class="resume-h">Education</div>
-      <div class="resume-edu-row"><b>M.Tech in Information Technology</b><span>2020 — 2022</span></div>
-      <div class="resume-edu-sub">Maulana Abul Kalam Azad University &nbsp;|&nbsp; CGPA: 9.32</div>
-      <div class="resume-edu-row"><b>B.Tech in Computer Science &amp; Engineering</b><span>2015 — 2019</span></div>
-      <div class="resume-edu-sub">Adamas Institute of Technology &nbsp;|&nbsp; CGPA: 7.63</div>
+  <section id="projects">
+    <div class="sec-head reveal">
+      <div class="sec-tag">What I've built</div>
+      <div class="sec-title">Featured Projects</div>
     </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="contact-box reveal">
-    <h2>Let's work together.</h2>
-    <p>Open to backend engineering opportunities where I can build scalable, well-tested services. Reach out anytime.</p>
-    <div class="contact-actions">
-      <a class="btn btn-primary" href="mailto:ghoshsubhranil26@gmail.com"><i class="fa-solid fa-envelope"></i> ghoshsubhranil26@gmail.com</a>
-      <a class="btn btn-ghost" href="tel:+919002800424"><i class="fa-solid fa-phone"></i> +91 90028 00424</a>
-      <a class="btn btn-ghost" href="https://www.linkedin.com/in/subhranilghosh" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+    <div class="projects-grid reveal">
+      <div class="project-card">
+        <div class="proj-tag">NCR Corporation</div>
+        <h3>ACM — Card Management System</h3>
+        <ul>
+          <li>Contributed to an enterprise-level Card Management System built with Spring Boot.</li>
+          <li>Implemented a generic Maker-Checker workflow across 5+ services — Makers perform CRUD operations, Checkers
+            approve before changes persist to the DB, ensuring strong transaction validation and security.</li>
+          <li>Built a configurable report generation engine using Spring Batch, letting users define custom templates
+            (header, footer, body fields) with output as CSV or TXT — covering issued cards, expired cards, and status
+            changes.</li>
+        </ul>
+        <div class="proj-techs">
+          <span class="chip">Spring Boot</span><span class="chip">Spring Batch</span><span
+            class="chip">Microservices</span><span class="chip">REST API</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="proj-tag">Max Life Insurance</div>
+        <h3>M-PRO — Agent Onboarding Platform</h3>
+        <ul>
+          <li>Built a central web application that helps insurance agents onboard customers efficiently.</li>
+          <li>Streamlined the onboarding workflow to be roughly 10x faster than prior manual processes.</li>
+        </ul>
+        <div class="proj-techs">
+          <span class="chip">Spring Boot</span><span class="chip">REST API</span><span class="chip">SQL</span>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  &copy; 2026 Subhranil Ghosh. Built with care for backend craftsmanship.<br>
-  <span style="opacity:0.6">*as reported via SonarQube / Coverity Scan / Mend quality gates at current role</span>
-</footer>
+  <section id="education">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Academic background</div>
+      <div class="sec-title">Education</div>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="deg">M.Tech in Information Technology</div>
+        <div class="inst">Maulana Abul Kalam Azad University of Technology</div>
+        <div class="edu-meta"><span>2020 — 2022</span><span>CGPA: 9.32</span></div>
+        <div class="cgpa-bar">
+          <div class="cgpa-fill" style="width:93.2%"></div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="deg">B.Tech in Computer Science &amp; Engineering</div>
+        <div class="inst">Adamas Institute of Technology</div>
+        <div class="edu-meta"><span>2015 — 2019</span><span>CGPA: 7.63</span></div>
+        <div class="cgpa-bar">
+          <div class="cgpa-fill" style="width:76.3%"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
-  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  <section id="resume">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Printable version</div>
+      <div class="sec-title">Resume / CV</div>
+    </div>
+    <div class="resume-toolbar reveal">
+      <a class="btn btn-primary" href="https://raw.githubusercontent.com/subhranilghosh1997/portfolio/main/files/cv.pdf"
+        download="Subhranil_Ghosh_CV.pdf" style="margin:0 auto 10px; display:inline-flex;"><i
+          class="fa-solid fa-download"></i> Download Resume (PDF)</a>
+    </div>
+    <div class="resume-hint reveal">Click to download my actual CV file.</div>
 
-  const revealEls = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => obs.observe(el));
+    <div class="resume-card reveal" id="resumeCard">
+      <div class="resume-name">SUBHRANIL GHOSH</div>
+      <div class="resume-contact">
+        <a href="mailto:ghoshsubhranil26@gmail.com">ghoshsubhranil26@gmail.com</a> &nbsp;||&nbsp;
+        <a href="https://www.linkedin.com/in/subhranilghosh" target="_blank">linkedin.com/in/subhranilghosh</a>
+        &nbsp;||&nbsp;
+        <a href="tel:+919002800424">+91 90028 00424</a>
+      </div>
 
-  const sections = document.querySelectorAll('section[id]');
-  const navAnchors = document.querySelectorAll('.nav-links a');
-  const navObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        navAnchors.forEach(a => a.classList.remove('active'));
-        const link = document.querySelector('.nav-links a[href="#' + entry.target.id + '"]');
-        if(link) link.classList.add('active');
-      }
-    });
-  }, { threshold: 0.4, rootMargin: '-80px 0px -50% 0px' });
-  sections.forEach(s => navObs.observe(s));
-</script>
+      <div class="resume-block">
+        <div class="resume-h">Summary</div>
+        <p>3.6 years of professional experience in the IT industry and proficient in software development. Extensively
+          worked on SDLC stages: requirements analysis, detailed design, coding, testing, code rework, and deployment.
+        </p>
+      </div>
+
+      <div class="resume-block">
+        <div class="resume-h">Skills</div>
+        <div class="resume-skill-line"><b>Technical Skills:</b> Java 8+, Spring Boot, REST API, Spring Batch, Spring
+          Data JPA, Hibernate, Microservices, Unit Testing (JUnit/Mockito), JIRA, Agile, Object Oriented Programming
+          (OOPs), Spring Security, Maven, Apache Tomcat (Embedded), JSON, Swagger, XML</div>
+        <div class="resume-skill-line"><b>Databases:</b> SQL (Oracle 19c / PostgreSQL / MySQL), NoSQL (MongoDB)</div>
+        <div class="resume-skill-line"><b>IDE &amp; Tools:</b> Git, Eclipse, IntelliJ, VS Code, Postman, MySQL
+          Workbench, SQL Developer, PgAdmin, GCP</div>
+        <div class="resume-skill-line"><b>Soft Skills:</b> Communication, teamwork and collaboration, Copilot-assisted
+          development</div>
+      </div>
+
+      <div class="resume-block">
+        <div class="resume-h">Work Experience</div>
+        <div class="resume-job">
+          <div class="resume-job-top">
+            <span class="resume-job-role">Software Engineer</span>
+            <span class="resume-job-period">Jul 2022 — Till Date</span>
+          </div>
+          <div class="resume-job-company">Monocept Consulting Pvt. Ltd.</div>
+          <ul>
+            <li>Analyzed project requirements and crafted Low-Level Designs (LLD) to meet client and project
+              specifications.</li>
+            <li>Developed software using Agile methodologies, ensuring timely and 90% efficient project execution.</li>
+            <li>Designed and developed RESTful APIs using Java 17 and Spring Boot 3.2.2, utilizing Swagger, making
+              testing 2x faster with a usable UI.</li>
+            <li>Managed version control efficiently using Git, with active involvement in committing and handling pull
+              requests on both GitHub &amp; GitLab. Dedicated 10% of capacity to code reviews.</li>
+            <li>Executed primary (P0) test cases using Postman and authored JUnit 5 test cases, achieving and
+              maintaining over 90% code coverage.</li>
+            <li>Utilized SonarQube, Coverity Scan, and Mend (WhiteSource) tools to monitor and enhance code quality
+              consistently, ensuring 0 bugs and code smells.</li>
+            <li>Fostered collaboration and effective communication with QA testers to ensure optimal team performance
+              and issue resolution.</li>
+          </ul>
+        </div>
+        <div class="resume-job">
+          <div class="resume-job-top">
+            <span class="resume-job-role">Software Intern</span>
+            <span class="resume-job-period">Jan 2022 — Mar 2022</span>
+          </div>
+          <div class="resume-job-company">WSE Infratech Pvt. Ltd.</div>
+          <ul>
+            <li>Worked on Spring Boot 2 and debugged code according to JIRA tickets and raised PRs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resume-block">
+        <div class="resume-h">Projects</div>
+        <div class="resume-job">
+          <div class="resume-job-top"><span class="resume-job-role">ACM Project — Card Management System</span></div>
+          <div class="resume-job-company">NCR Corporation</div>
+          <ul>
+            <li>Participated in the development of ACM, an enterprise-level card management system using Spring Boot.
+            </li>
+            <li>Implemented generic Maker-Checker features across 5+ services, ensuring robust transaction validation
+              and security — Makers perform CRUD operations, Checkers approve requests before they are stored in the DB.
+            </li>
+            <li>Built report generation for issued cards, expired cards, and status changes using Spring Batch, with
+              user-defined templates (header, footer, body fields), output as CSV or TXT.</li>
+          </ul>
+        </div>
+        <div class="resume-job">
+          <div class="resume-job-top"><span class="resume-job-role">M-PRO Project</span></div>
+          <div class="resume-job-company">Max Life Insurance</div>
+          <ul>
+            <li>A central web application designed to assist agents in onboarding customers efficiently and 10x faster.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resume-block">
+        <div class="resume-h">Education</div>
+        <div class="resume-edu-row"><b>M.Tech in Information Technology</b><span>2020 — 2022</span></div>
+        <div class="resume-edu-sub">Maulana Abul Kalam Azad University &nbsp;|&nbsp; CGPA: 9.32</div>
+        <div class="resume-edu-row"><b>B.Tech in Computer Science &amp; Engineering</b><span>2015 — 2019</span></div>
+        <div class="resume-edu-sub">Adamas Institute of Technology &nbsp;|&nbsp; CGPA: 7.63</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-box reveal">
+      <h2>Let's work together.</h2>
+      <p>Open to backend engineering opportunities where I can build scalable, well-tested services. Reach out anytime.
+      </p>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="mailto:ghoshsubhranil26@gmail.com"><i class="fa-solid fa-envelope"></i>
+          ghoshsubhranil26@gmail.com</a>
+        <a class="btn btn-ghost" href="tel:+919002800424"><i class="fa-solid fa-phone"></i> +91 90028 00424</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/subhranilghosh" target="_blank"><i
+            class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Subhranil Ghosh. Built with care for backend craftsmanship.<br>
+    <span style="opacity:0.6">*as reported via SonarQube / Coverity Scan / Mend quality gates at current role</span>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => obs.observe(el));
+
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a');
+    const navObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navAnchors.forEach(a => a.classList.remove('active'));
+          const link = document.querySelector('.nav-links a[href="#' + entry.target.id + '"]');
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4, rootMargin: '-80px 0px -50% 0px' });
+    sections.forEach(s => navObs.observe(s));
+  </script>
 
 </body>
+
 </html>
