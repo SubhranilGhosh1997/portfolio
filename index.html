@@ -1116,6 +1116,8 @@
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-cta">
+      <a class="icon-btn" href="https://github.com/SubhranilGhosh1997" target="_blank" title="GitHub"><i
+          class="fa-brands fa-github"></i></a>
       <a class="icon-btn" href="https://www.linkedin.com/in/subhranilghosh" target="_blank" title="LinkedIn"><i
           class="fa-brands fa-linkedin-in"></i></a>
       <a class="icon-btn" href="mailto:ghoshsubhranil26@gmail.com" title="Email"><i
@@ -1295,7 +1297,7 @@
   <section id="projects">
     <div class="sec-head reveal">
       <div class="sec-tag">What I've built</div>
-      <div class="sec-title">Featured Project</div>
+      <div class="sec-title">Featured Projects</div>
     </div>
     <div class="projects-grid reveal">
       <div class="project-card wide">
@@ -1321,6 +1323,26 @@
             PostgreSQL</span>
           <span class="chip">HSM Integration</span><span class="chip">MDES / VTS Tokenization</span>
         </div>
+      </div>
+      <div class="project-card wide">
+        <div class="proj-tag">Personal Project</div>
+        <h3>URL Shortener — Redis Cache + Kafka Analytics</h3>
+        <ul>
+          <li>Built a REST API that shortens URLs into Base62 codes stored in PostgreSQL and redirects with HTTP 302.
+          </li>
+          <li>Implemented the cache-aside pattern with Redis, serving redirects from memory and falling back to
+            PostgreSQL on a cache miss.</li>
+          <li>Publish a click event to Kafka on every redirect; a consumer updates atomic Redis counters, decoupling
+            click counting from the redirect response.</li>
+          <li>Exposed an analytics endpoint for total clicks, and containerized the full stack (app, PostgreSQL, Redis,
+            Kafka) with Docker Compose.</li>
+        </ul>
+        <div class="proj-techs">
+          <span class="chip">Java 21</span><span class="chip">Spring Boot</span><span class="chip">PostgreSQL</span>
+          <span class="chip">Redis</span><span class="chip">Apache Kafka</span><span class="chip">Docker Compose</span>
+        </div>
+        <a class="btn btn-ghost" href="https://github.com/SubhranilGhosh1997/url-shortener" target="_blank"
+          style="display:inline-flex; margin-top:20px;"><i class="fa-brands fa-github"></i> View on GitHub</a>
       </div>
     </div>
   </section>
