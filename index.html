@@ -501,6 +501,12 @@
       transform: translateY(-4px);
     }
 
+    .skill-card.featured {
+      grid-column: 1 / -1;
+      border-color: rgba(62, 232, 181, 0.35);
+      background: linear-gradient(160deg, var(--card), rgba(62, 232, 181, 0.05));
+    }
+
     .skill-card h3 {
       display: flex;
       align-items: center;
@@ -518,6 +524,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .skill-card.featured h3 i {
+      background: rgba(62, 232, 181, 0.12);
+      color: var(--accent);
     }
 
     .chips {
@@ -618,6 +629,19 @@
       font-weight: 500;
     }
 
+    .promo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent3);
+      background: rgba(167, 139, 250, 0.12);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
     .t-list {
       list-style: none;
       display: flex;
@@ -662,6 +686,10 @@
       transition: transform .3s, border-color .3s;
     }
 
+    .project-card.wide {
+      grid-column: 1 / -1;
+    }
+
     .project-card:hover {
       transform: translateY(-6px);
       border-color: var(--accent2);
@@ -702,6 +730,18 @@
       flex-direction: column;
       gap: 10px;
       margin-bottom: 18px;
+    }
+
+    .project-card.wide ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px 32px;
+    }
+
+    @media (max-width:820px) {
+      .project-card.wide ul {
+        grid-template-columns: 1fr;
+      }
     }
 
     .project-card ul li {
@@ -1087,12 +1127,12 @@
   <section class="hero" id="about">
     <div class="hero-inner">
       <div class="hero-text">
-        <div class="eyebrow">Backend Developer · Java Ecosystem</div>
+        <div class="eyebrow">Java Backend Developer · Card Tokenization</div>
         <h1>Hi, I'm <span>Subhranil Ghosh.</span><br>I build reliable backend systems.</h1>
-        <div class="role">Java · Spring Boot · Microservices · REST APIs</div>
-        <p class="summary">3.9+ years of professional experience in the IT industry, with strong hands-on exposure
-          across the full SDLC — requirements analysis, low-level design, coding, testing, and deployment. I care about
-          clean APIs, solid test coverage, and code that ships without bugs or code smells.</p>
+        <div class="role">Java 17 · Spring Boot 3 · Spring Batch · MDES &amp; VTS</div>
+        <p class="summary">Java Backend Developer with 4 years of experience building enterprise REST APIs with Java 17,
+          Spring Boot 3 and Spring Batch. Specialized in issuer-side card tokenization (Mastercard MDES, Visa VTS) and
+          secure PIN management with HSM on NCR's card management platform. Maintains 90%+ unit test coverage.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="mailto:ghoshsubhranil26@gmail.com"><i class="fa-solid fa-paper-plane"></i>
             Get in touch</a>
@@ -1115,7 +1155,7 @@
 
   <div class="stats reveal">
     <div class="stat-card">
-      <div class="stat-num">3.9+</div>
+      <div class="stat-num">4+</div>
       <div class="stat-label">Years of Experience</div>
     </div>
     <div class="stat-card">
@@ -1124,7 +1164,7 @@
     </div>
     <div class="stat-card">
       <div class="stat-num">5+</div>
-      <div class="stat-label">Microservices Built</div>
+      <div class="stat-label">Services with Maker-Checker</div>
     </div>
     <div class="stat-card">
       <div class="stat-num" style="font-size:1.3rem;">Java 17</div>
@@ -1138,16 +1178,27 @@
       <div class="sec-title">Skills &amp; Tools</div>
     </div>
     <div class="skills-grid reveal">
-      <div class="skill-card">
-        <h3><i class="fa-solid fa-code"></i> Core &amp; Frameworks</h3>
+      <div class="skill-card featured">
+        <h3><i class="fa-solid fa-shield-halved"></i> Domain Expertise</h3>
         <div class="chips">
-          <span class="chip">Java 8+</span><span class="chip">Spring Boot</span><span class="chip">Spring Data
-            JPA</span>
-          <span class="chip">Spring Batch</span><span class="chip">Spring Security</span><span
-            class="chip">Hibernate</span>
-          <span class="chip">REST APIs</span><span class="chip">Microservices</span><span class="chip">OOPs</span>
-          <span class="chip">Maven</span><span class="chip">Apache Tomcat</span><span class="chip">Swagger</span><span
-            class="chip">JSON / XML</span>
+          <span class="chip">Card Tokenization (MDES, VTS)</span><span class="chip">Token Lifecycle Management</span>
+          <span class="chip">Configurable Rule Engine</span><span class="chip">PIN Management</span>
+          <span class="chip">HSM Integration</span><span class="chip">Maker-Checker</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fa-solid fa-code"></i> Languages &amp; Frameworks</h3>
+        <div class="chips">
+          <span class="chip">Java 8+ (Java 17)</span><span class="chip">SQL</span><span class="chip">Spring Boot</span>
+          <span class="chip">Spring Batch</span><span class="chip">Spring Data JPA</span><span class="chip">Spring
+            Security</span><span class="chip">Hibernate</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fa-solid fa-sitemap"></i> Architecture</h3>
+        <div class="chips">
+          <span class="chip">Microservices</span><span class="chip">RESTful APIs</span><span class="chip">OOP</span>
+          <span class="chip">Swagger / OpenAPI</span><span class="chip">JSON</span><span class="chip">XML</span>
         </div>
       </div>
       <div class="skill-card">
@@ -1158,21 +1209,35 @@
         </div>
       </div>
       <div class="skill-card">
-        <h3><i class="fa-solid fa-vial"></i> Testing &amp; Quality</h3>
+        <h3><i class="fa-solid fa-bolt"></i> Messaging &amp; Caching</h3>
         <div class="chips">
-          <span class="chip">JUnit 5</span><span class="chip">Mockito</span><span class="chip">SonarQube</span>
-          <span class="chip">Coverity Scan</span><span class="chip">Mend (WhiteSource)</span><span
-            class="chip">Postman</span>
+          <span class="chip">Apache Kafka</span><span class="chip">Redis</span>
         </div>
       </div>
       <div class="skill-card">
-        <h3><i class="fa-solid fa-toolbox"></i> Tools &amp; Platforms</h3>
+        <h3><i class="fa-solid fa-vial"></i> Testing &amp; Quality</h3>
         <div class="chips">
-          <span class="chip">Git / GitHub / GitLab</span><span class="chip">IntelliJ</span><span
-            class="chip">Eclipse</span>
-          <span class="chip">VS Code</span><span class="chip">GCP</span><span class="chip">JIRA</span><span
-            class="chip">Agile</span>
-          <span class="chip">PgAdmin</span><span class="chip">SQL Developer</span>
+          <span class="chip">JUnit 5</span><span class="chip">Mockito</span><span class="chip">Postman</span>
+          <span class="chip">SonarQube</span><span class="chip">Coverity Scan</span><span class="chip">Mend
+            (WhiteSource)</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fa-solid fa-toolbox"></i> Tools &amp; Cloud</h3>
+        <div class="chips">
+          <span class="chip">Git (GitHub, GitLab)</span><span class="chip">Maven</span><span class="chip">JIRA</span>
+          <span class="chip">IntelliJ IDEA</span><span class="chip">Eclipse</span><span class="chip">VS Code</span>
+          <span class="chip">SQL Developer</span><span class="chip">MySQL Workbench</span><span
+            class="chip">pgAdmin</span>
+          <span class="chip">GCP</span><span class="chip">GitHub Copilot</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fa-solid fa-list-check"></i> Methodologies</h3>
+        <div class="chips">
+          <span class="chip">Agile / Scrum</span><span class="chip">SDLC</span>
+          <span class="chip">Requirements</span><span class="chip">Design</span><span class="chip">Coding</span><span
+            class="chip">Testing</span><span class="chip">Deployment</span>
         </div>
       </div>
     </div>
@@ -1188,17 +1253,25 @@
         <div class="t-dot"></div>
         <div class="t-card">
           <div class="t-top">
-            <div class="t-role">Senior Software Engineer</div>
+            <div class="t-role">Senior Software Developer</div>
             <div class="t-period">Apr 2025 — Present</div>
           </div>
           <div class="t-company">Monocept Consulting Pvt. Ltd.</div>
+          <div class="promo-badge"><i class="fa-solid fa-arrow-trend-up"></i> Promoted from Software Engineer (Nov 2022
+            – Mar 2025)</div>
           <ul class="t-list">
-            <li>Lead feature analysis, design, and development across assigned modules from requirements through
-              delivery.</li>
-            <li>Conduct pull request (PR) reviews to maintain code quality and consistency across the team.</li>
-            <li>Support fellow developers and QA testers, helping unblock issues during development and testing cycles.
-            </li>
-            <li>Provide quick fixes and resolutions for production issues, minimizing downtime and business impact.</li>
+            <li>Analyzed client requirements and prepared Low-Level Designs (LLD) to translate business needs into
+              technical specifications.</li>
+            <li>Documented APIs with Swagger, giving QA and developers an interactive UI and making API testing roughly
+              2x faster.</li>
+            <li>Designed and developed RESTful APIs using Java 17 and Spring Boot 3.2.2 across multiple services in an
+              Agile environment, delivering sprint commitments on schedule.</li>
+            <li>Wrote JUnit 5 and Mockito unit tests, sustaining over 90% code coverage; executed priority (P0) test
+              cases with Postman.</li>
+            <li>Monitored code quality with SonarQube, Coverity Scan and Mend (WhiteSource), keeping bugs and code
+              smells at zero in the quality gate.</li>
+            <li>Managed source control using Git on GitHub and actively participated in peer code reviews.</li>
+            <li>Collaborated closely with QA testers to triage and resolve issues quickly.</li>
           </ul>
         </div>
       </div>
@@ -1206,37 +1279,13 @@
         <div class="t-dot"></div>
         <div class="t-card">
           <div class="t-top">
-            <div class="t-role">Software Engineer</div>
-            <div class="t-period">Jul 2022 — Mar 2025</div>
+            <div class="t-role">Trainee Software Developer</div>
+            <div class="t-period">Jul 2022 — Nov 2022</div>
           </div>
           <div class="t-company">Monocept Consulting Pvt. Ltd.</div>
           <ul class="t-list">
-            <li>Analyzed project requirements and crafted Low-Level Designs (LLD) to meet client and project
-              specifications.</li>
-            <li>Developed software using Agile methodologies, ensuring timely and 90% efficient project execution.</li>
-            <li>Designed and built RESTful APIs using Java 17 &amp; Spring Boot 3.2.2, documenting with Swagger — making
-              testing 2x faster with a usable UI for QA and stakeholders.</li>
-            <li>Managed version control across GitHub &amp; GitLab, actively handling pull requests; dedicated 10% of
-              capacity to code reviews.</li>
-            <li>Executed P0 test cases via Postman and authored JUnit 5 test suites, achieving and maintaining 90%+ code
-              coverage.</li>
-            <li>Used SonarQube, Coverity Scan, and Mend (WhiteSource) to continuously monitor code quality — shipping
-              with zero bugs and code smells.</li>
-            <li>Collaborated closely with QA testers to ensure smooth issue resolution and team performance.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="t-item">
-        <div class="t-dot"></div>
-        <div class="t-card">
-          <div class="t-top">
-            <div class="t-role">Software Intern</div>
-            <div class="t-period">Jan 2022 — Mar 2022</div>
-          </div>
-          <div class="t-company">WSE Infratech Pvt. Ltd.</div>
-          <ul class="t-list">
-            <li>Worked hands-on with Spring Boot 2, debugging issues tracked via JIRA tickets.</li>
-            <li>Raised and managed pull requests as part of the development workflow.</li>
+            <li>Completed structured training in Java and microservices development before joining a client project
+              team.</li>
           </ul>
         </div>
       </div>
@@ -1246,34 +1295,31 @@
   <section id="projects">
     <div class="sec-head reveal">
       <div class="sec-tag">What I've built</div>
-      <div class="sec-title">Featured Projects</div>
+      <div class="sec-title">Featured Project</div>
     </div>
     <div class="projects-grid reveal">
-      <div class="project-card">
-        <div class="proj-tag">NCR Corporation</div>
+      <div class="project-card wide">
+        <div class="proj-tag">NCR Corporation · Ongoing client project</div>
         <h3>ACM — Card Management System</h3>
         <ul>
-          <li>Contributed to an enterprise-level Card Management System built with Spring Boot.</li>
-          <li>Implemented a generic Maker-Checker workflow across 5+ services — Makers perform CRUD operations, Checkers
-            approve before changes persist to the DB, ensuring strong transaction validation and security.</li>
-          <li>Built a configurable report generation engine using Spring Batch, letting users define custom templates
-            (header, footer, body fields) with output as CSV or TXT — covering issued cards, expired cards, and status
-            changes.</li>
+          <li>Developed issuer-side card tokenization integrations with Mastercard MDES and Visa VTS.</li>
+          <li>Designed and built a configurable rule engine that lets the issuer approve, decline, or require additional
+            authentication for token requests.</li>
+          <li>Managed the full token lifecycle: activate, suspend, resume and terminate.</li>
+          <li>Built PIN management services that let cardholders view their PIN and raise re-PIN requests.</li>
+          <li>Integrated with a Hardware Security Module (HSM) that stores PINs encrypted with two layers of encryption,
+            keeping them highly secure.</li>
+          <li>Implemented a generic Maker-Checker framework across 5+ services: a maker creates, updates or deletes
+            records, and the change is persisted only after a checker approves it.</li>
+          <li>Built configurable report generation with Spring Batch for issued cards, expired cards and status changes.
+            Users define templates (header, body, footer fields) and receive CSV or TXT reports.</li>
+          <li>Contributed to an enterprise-level card management system built on Spring Boot microservices.</li>
         </ul>
         <div class="proj-techs">
-          <span class="chip">Spring Boot</span><span class="chip">Spring Batch</span><span
-            class="chip">Microservices</span><span class="chip">REST API</span>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="proj-tag">Max Life Insurance</div>
-        <h3>M-PRO — Agent Onboarding Platform</h3>
-        <ul>
-          <li>Built a central web application that helps insurance agents onboard customers efficiently.</li>
-          <li>Streamlined the onboarding workflow to be roughly 10x faster than prior manual processes.</li>
-        </ul>
-        <div class="proj-techs">
-          <span class="chip">Spring Boot</span><span class="chip">REST API</span><span class="chip">SQL</span>
+          <span class="chip">Java 17</span><span class="chip">Spring Boot</span><span class="chip">Spring Batch</span>
+          <span class="chip">Spring Data JPA</span><span class="chip">REST APIs</span><span class="chip">Oracle /
+            PostgreSQL</span>
+          <span class="chip">HSM Integration</span><span class="chip">MDES / VTS Tokenization</span>
         </div>
       </div>
     </div>
@@ -1287,8 +1333,8 @@
     <div class="edu-grid reveal">
       <div class="edu-card">
         <div class="deg">M.Tech in Information Technology</div>
-        <div class="inst">Maulana Abul Kalam Azad University of Technology</div>
-        <div class="edu-meta"><span>2020 — 2022</span><span>CGPA: 9.32</span></div>
+        <div class="inst">Maulana Abul Kalam Azad University</div>
+        <div class="edu-meta"><span>2020 — 2022</span><span>CGPA: 9.32 / 10</span></div>
         <div class="cgpa-bar">
           <div class="cgpa-fill" style="width:93.2%"></div>
         </div>
@@ -1296,25 +1342,9 @@
       <div class="edu-card">
         <div class="deg">B.Tech in Computer Science &amp; Engineering</div>
         <div class="inst">Adamas Institute of Technology</div>
-        <div class="edu-meta"><span>2015 — 2019</span><span>CGPA: 7.63</span></div>
+        <div class="edu-meta"><span>2015 — 2019</span><span>CGPA: 7.63 / 10</span></div>
         <div class="cgpa-bar">
           <div class="cgpa-fill" style="width:76.3%"></div>
-        </div>
-      </div>
-      <div class="edu-card">
-        <div class="deg">Higher Secondery (10th+)</div>
-        <div class="inst">Ukhra Kunja Behari Institution</div>
-        <div class="edu-meta"><span>2013-2015</span><span>percentage: 77%</span></div>
-        <div class="cgpa-bar">
-          <div class="cgpa-fill" style="width:77%"></div>
-        </div>
-      </div>
-      <div class="edu-card">
-        <div class="deg">Secondery (Madhyamic/10th)</div>
-        <div class="inst">Ukhra Kunja Behari Institution</div>
-        <div class="edu-meta"><span>2013</span><span>percentage: 80%</span></div>
-        <div class="cgpa-bar">
-          <div class="cgpa-fill" style="width:80%"></div>
         </div>
       </div>
     </div>
@@ -1344,70 +1374,63 @@
 
       <div class="resume-block">
         <div class="resume-h">Summary</div>
-        <p>3.9+ years of professional experience in the IT industry and proficient in software development. Extensively
-          worked on SDLC stages: requirements analysis, detailed design, coding, testing, code rework, and deployment.
-        </p>
+        <p>Java Backend Developer with 4 years of experience building enterprise REST APIs with Java 17, Spring Boot 3
+          and Spring Batch. Specialized in issuer-side card tokenization (Mastercard MDES, Visa VTS) and secure PIN
+          management with HSM on NCR's card management platform. Maintains 90%+ unit test coverage.</p>
       </div>
 
       <div class="resume-block">
         <div class="resume-h">Skills</div>
-        <div class="resume-skill-line"><b>Technical Skills:</b> Java 8+, Spring Boot, REST API, Spring Batch, Spring
-          Data JPA, Hibernate, Microservices, Unit Testing (JUnit/Mockito), JIRA, Agile, Object Oriented Programming
-          (OOPs), Spring Security, Maven, Apache Tomcat (Embedded), JSON, Swagger, XML</div>
-        <div class="resume-skill-line"><b>Databases:</b> SQL (Oracle 19c / PostgreSQL / MySQL), NoSQL (MongoDB)</div>
-        <div class="resume-skill-line"><b>IDE &amp; Tools:</b> Git, Eclipse, IntelliJ, VS Code, Postman, MySQL
-          Workbench, SQL Developer, PgAdmin, GCP</div>
-        <div class="resume-skill-line"><b>Soft Skills:</b> Communication, teamwork and collaboration, Copilot-assisted
-          development</div>
+        <div class="resume-skill-line"><b>Domain Expertise:</b> Card Tokenization (MDES, VTS), Token Lifecycle
+          Management, Configurable Rule Engine, PIN Management, HSM Integration, Maker-Checker</div>
+        <div class="resume-skill-line"><b>Languages:</b> Java 8+ (Java 17), SQL</div>
+        <div class="resume-skill-line"><b>Frameworks:</b> Spring Boot, Spring Batch, Spring Data JPA, Spring Security,
+          Hibernate</div>
+        <div class="resume-skill-line"><b>Architecture:</b> Microservices, RESTful APIs, Object-Oriented Programming,
+          Swagger/OpenAPI, JSON, XML</div>
+        <div class="resume-skill-line"><b>Databases:</b> Oracle 19c, PostgreSQL, MySQL, MongoDB</div>
+        <div class="resume-skill-line"><b>Messaging and Caching:</b> Apache Kafka, Redis</div>
+        <div class="resume-skill-line"><b>Testing and Quality:</b> JUnit 5, Mockito, Postman, SonarQube, Coverity Scan,
+          Mend (WhiteSource)</div>
+        <div class="resume-skill-line"><b>Tools and Cloud:</b> Git (GitHub, GitLab), Maven, JIRA, IntelliJ IDEA,
+          Eclipse, VS Code, SQL Developer, MySQL Workbench, pgAdmin, GCP, GitHub Copilot</div>
+        <div class="resume-skill-line"><b>Methodologies:</b> Agile/Scrum, SDLC (requirements, design, coding, testing,
+          deployment)</div>
       </div>
 
       <div class="resume-block">
         <div class="resume-h">Work Experience</div>
         <div class="resume-job">
           <div class="resume-job-top">
-            <span class="resume-job-role">Senior Software Engineer</span>
-            <span class="resume-job-period">Apr 2025 — Till Date</span>
+            <span class="resume-job-role">Senior Software Developer</span>
+            <span class="resume-job-period">Apr 2025 — Present</span>
           </div>
-          <div class="resume-job-company">Monocept Consulting Pvt. Ltd.</div>
+          <div class="resume-job-company">Monocept Consulting Pvt. Ltd. &nbsp;|&nbsp; Promoted from Software Engineer
+            (Nov 2022 – Mar 2025)</div>
           <ul>
-            <li>Lead feature analysis, design, and development across assigned modules from requirements through
-              delivery.</li>
-            <li>Conduct pull request (PR) reviews to maintain code quality and consistency across the team.</li>
-            <li>Support fellow developers and QA testers, helping unblock issues during development and testing cycles.
-            </li>
-            <li>Provide quick fixes and resolutions for production issues, minimizing downtime and business impact.</li>
+            <li>Analyzed client requirements and prepared Low-Level Designs (LLD) to translate business needs into
+              technical specifications.</li>
+            <li>Documented APIs with Swagger, giving QA and developers an interactive UI and making API testing roughly
+              2x faster.</li>
+            <li>Designed and developed RESTful APIs using Java 17 and Spring Boot 3.2.2 across multiple services in an
+              Agile environment, delivering sprint commitments on schedule.</li>
+            <li>Wrote JUnit 5 and Mockito unit tests, sustaining over 90% code coverage; executed priority (P0) test
+              cases with Postman.</li>
+            <li>Monitored code quality with SonarQube, Coverity Scan and Mend (WhiteSource), keeping bugs and code
+              smells at zero in the quality gate.</li>
+            <li>Managed source control using Git on GitHub and actively participated in peer code reviews.</li>
+            <li>Collaborated closely with QA testers to triage and resolve issues quickly.</li>
           </ul>
         </div>
         <div class="resume-job">
           <div class="resume-job-top">
-            <span class="resume-job-role">Software Engineer</span>
-            <span class="resume-job-period">Jul 2022 — Mar 2025</span>
+            <span class="resume-job-role">Trainee Software Developer</span>
+            <span class="resume-job-period">Jul 2022 — Nov 2022</span>
           </div>
           <div class="resume-job-company">Monocept Consulting Pvt. Ltd.</div>
           <ul>
-            <li>Analyzed project requirements and crafted Low-Level Designs (LLD) to meet client and project
-              specifications.</li>
-            <li>Developed software using Agile methodologies, ensuring timely and 90% efficient project execution.</li>
-            <li>Designed and developed RESTful APIs using Java 17 and Spring Boot 3.2.2, utilizing Swagger, making
-              testing 2x faster with a usable UI.</li>
-            <li>Managed version control efficiently using Git, with active involvement in committing and handling pull
-              requests on both GitHub &amp; GitLab. Dedicated 10% of capacity to code reviews.</li>
-            <li>Executed primary (P0) test cases using Postman and authored JUnit 5 test cases, achieving and
-              maintaining over 90% code coverage.</li>
-            <li>Utilized SonarQube, Coverity Scan, and Mend (WhiteSource) tools to monitor and enhance code quality
-              consistently, ensuring 0 bugs and code smells.</li>
-            <li>Fostered collaboration and effective communication with QA testers to ensure optimal team performance
-              and issue resolution.</li>
-          </ul>
-        </div>
-        <div class="resume-job">
-          <div class="resume-job-top">
-            <span class="resume-job-role">Software Intern</span>
-            <span class="resume-job-period">Jan 2022 — Mar 2022</span>
-          </div>
-          <div class="resume-job-company">WSE Infratech Pvt. Ltd.</div>
-          <ul>
-            <li>Worked on Spring Boot 2 and debugged code according to JIRA tickets and raised PRs.</li>
+            <li>Completed structured training in Java and microservices development before joining a client project
+              team.</li>
           </ul>
         </div>
       </div>
@@ -1415,34 +1438,35 @@
       <div class="resume-block">
         <div class="resume-h">Projects</div>
         <div class="resume-job">
-          <div class="resume-job-top"><span class="resume-job-role">ACM Project — Card Management System</span></div>
-          <div class="resume-job-company">NCR Corporation</div>
+          <div class="resume-job-top"><span class="resume-job-role">ACM — Card Management System at NCR
+              Corporation</span></div>
+          <div class="resume-job-company">Ongoing client project &nbsp;|&nbsp; Tech: Java 17, Spring Boot, Spring Batch,
+            Spring Data JPA, REST APIs, Oracle/PostgreSQL, HSM integration, MDES/VTS tokenization</div>
           <ul>
-            <li>Participated in the development of ACM, an enterprise-level card management system using Spring Boot.
+            <li>Developed issuer-side card tokenization integrations with Mastercard MDES and Visa VTS.</li>
+            <li>Designed and built a configurable rule engine that lets the issuer approve, decline, or require
+              additional authentication for token requests.</li>
+            <li>Managed the full token lifecycle: activate, suspend, resume and terminate.</li>
+            <li>Built PIN management services that let cardholders view their PIN and raise re-PIN requests.</li>
+            <li>Integrated with a Hardware Security Module (HSM) that stores PINs encrypted with two layers of
+              encryption, keeping them highly secure.</li>
+            <li>Implemented a generic Maker-Checker framework across 5+ services: a maker creates, updates or deletes
+              (CRUD) records, and the change is persisted to the database only after a checker approves it,
+              strengthening validation and security.</li>
+            <li>Built configurable report generation with Spring Batch for issued cards, expired cards and status
+              changes. Users define templates (header, body, footer fields) and receive reports in CSV or TXT format.
             </li>
-            <li>Implemented generic Maker-Checker features across 5+ services, ensuring robust transaction validation
-              and security — Makers perform CRUD operations, Checkers approve requests before they are stored in the DB.
-            </li>
-            <li>Built report generation for issued cards, expired cards, and status changes using Spring Batch, with
-              user-defined templates (header, footer, body fields), output as CSV or TXT.</li>
-          </ul>
-        </div>
-        <div class="resume-job">
-          <div class="resume-job-top"><span class="resume-job-role">M-PRO Project</span></div>
-          <div class="resume-job-company">Max Life Insurance</div>
-          <ul>
-            <li>A central web application designed to assist agents in onboarding customers efficiently and 10x faster.
-            </li>
+            <li>Contributed to an enterprise-level card management system built on Spring Boot microservices.</li>
           </ul>
         </div>
       </div>
 
       <div class="resume-block">
         <div class="resume-h">Education</div>
-        <div class="resume-edu-row"><b>M.Tech in Information Technology</b><span>2020 — 2022</span></div>
-        <div class="resume-edu-sub">Maulana Abul Kalam Azad University &nbsp;|&nbsp; CGPA: 9.32</div>
-        <div class="resume-edu-row"><b>B.Tech in Computer Science &amp; Engineering</b><span>2015 — 2019</span></div>
-        <div class="resume-edu-sub">Adamas Institute of Technology &nbsp;|&nbsp; CGPA: 7.63</div>
+        <div class="resume-edu-row"><b>M.Tech, Information Technology</b><span>2020 — 2022</span></div>
+        <div class="resume-edu-sub">Maulana Abul Kalam Azad University &nbsp;|&nbsp; CGPA: 9.32/10</div>
+        <div class="resume-edu-row"><b>B.Tech, Computer Science and Engineering</b><span>2015 — 2019</span></div>
+        <div class="resume-edu-sub">Adamas Institute of Technology &nbsp;|&nbsp; CGPA: 7.63/10</div>
       </div>
     </div>
   </section>
@@ -1450,8 +1474,8 @@
   <section id="contact">
     <div class="contact-box reveal">
       <h2>Let's work together.</h2>
-      <p>Open to backend engineering opportunities where I can build scalable, well-tested services. Reach out anytime.
-      </p>
+      <p>Open to backend engineering opportunities where I can build secure, scalable, well-tested services. Reach out
+        anytime.</p>
       <div class="contact-actions">
         <a class="btn btn-primary" href="mailto:ghoshsubhranil26@gmail.com"><i class="fa-solid fa-envelope"></i>
           ghoshsubhranil26@gmail.com</a>
@@ -1463,7 +1487,7 @@
   </section>
 
   <footer>
-    &copy; 2026 Subhranil Ghosh. Software Engineer . M.Tech in Information Technology.
+    &copy; 2026 Subhranil Ghosh. Built with care for backend craftsmanship.
   </footer>
 
   <script>
